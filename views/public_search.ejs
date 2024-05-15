@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html>
+
+    <head>
+    
+        <link rel= "stylesheet" href="/css/topnavstyle.css"> <!--Calls .css file with settings for navigation bar-->
+        
+    </head>
+
+    <title>Search ACRA</title>
+   <h1>Search Results</h1>
+
+   <!--Navigation bar menu options-->
+   <div class="topnav">
+       <a href="/">Home</a>
+   </div>
+
+<br></br>
+
+<body>
+
+    <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite;  
+    font-size: 15px; 
+    padding: 10px; 
+    border: 1px solid lightgray; 
+    margin: 5px;">
+
+    <div id =print_public>
+    <label> <b> Case ID:</b> </label> 
+    <p><%= data.CaseID %></p>
+
+    <br/>
+    
+    <label> <b>Date of Hearing:</b> </label> 
+    <p><%= data.DoH %></p>
+
+    <br/>
+    
+    <label> <b> Date of Next Hearing:</b> </label> 
+    <p><%= data.DoNH %></p>
+    
+    <br/>
+   
+    <label> <b>Persons Present:</b> </label> 
+    <p><%= data.PersonsPresent %></p>
+
+    <br/>
+
+    <label> <b>Start of Hearing:</b>
+    <p><%= data.StartoH %></p>
+        
+    <br/>
+
+    <label> <b>End of Hearing:</b>
+    <p><%= data.EndoH %></p>
+    
+    <br/>
+
+    <label> <b>Directions By The Court:</b> </label>
+    <p><%= data.Directions %></p>
+
+    <br/>
+
+</div>
+
+ <button id="download"> Download</button>
+        <div class="card" id="invoice">
+
+    <div>
+  
+        <script src="pdf.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    
+       
+    </div>
+    
+    <script>
+    
+    window.onload = function () {
+                    document.getElementById("download")
+                        .addEventListener("click", () => {
+                            const invoice = this.document.getElementById("print_public");
+                            console.log(invoice);
+                            console.log(window);
+                            var opt = {
+                                margin: 1,
+                                filename: 'CaseID<%= data.CaseID %>_Report.pdf',
+                                image: { type: 'jpeg', quality: 0.98 },
+                                html2canvas: { scale: 2 },
+                                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                            };
+                            html2pdf().from(invoice).set(opt).save();
+                        })
+                  }
+    
+    </script>
+
+</body>
+    </html>

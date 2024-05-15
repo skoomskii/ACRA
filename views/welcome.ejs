@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <!--Calls .css file with settings for navigation bar-->
+        <link rel= "stylesheet" href="./css/topnavstyle.css">
+
+        <!--Settings for background image-->
+        <style>
+            body{
+                background-image: url('./images/ttjud.png');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+        </style>
+
+    </head>
+
+    <title>Home - ACRA</title> <!--Title of webpage-->
+
+   <h1 style="text-align:center;">Welcome to The Automated Court Record Application (ACRA) Homepage</h1>
+  
+   <!--Navigation bar menu options-->
+<div class="topnav">
+    <a href="/">Home</a>
+    <a href="/users/login">Login</a>
+</div>
+
+<br> 
+
+<body>
+
+    <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite; 
+    font-size: 15px; 
+    padding: 10px; 
+    border: 1px solid lightgray; 
+    margin: 5px;">
+
+    <% if(locals.message){ %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Record Not Found</strong> <%=message.error%>
+    </div>
+<% } %>
+
+<form class="search" action="/users/public_search" method="GET"> 
+    <label> <b>Enter Case Record ID:</b> </label> 
+    <input 
+    type="search"
+    id="caseID"
+    name="caseID" 
+    placeholder="Search..."
+    class="form-control"
+    required />
+    <button type="submit">Search</button>
+</form>
+
+</body>
+    </html>

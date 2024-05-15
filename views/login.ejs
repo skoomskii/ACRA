@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<!---Image display-->
+    <style>
+        img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+        float:right 
+        }
+     </style>
+
+<head>
+
+<!--Calls .css file with settings for navigation bar-->
+     
+    <link rel= "stylesheet" href="/css/topnavstyle.css">
+    
+    <!--Title of webpage -->
+<title>ACRA Login</title>
+
+<!--Navigation bar menu options-->
+<div class="topnav">
+    <a href="/" class="topnav">Home</a>
+  </div>
+
+</head>
+
+<body>
+
+    <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite;
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    margin: 5px;">
+
+        <h1>ACRA Login</h1>
+        <%- include ("./partials/messages"); %>
+
+        <form action="/users/login" method="POST">
+            <!--Form function to display blank boxes to input information-->
+            <div class="form-group">
+                <label> <b>Username:</b> </label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       placeholder="Username..."
+                       class="form-control"
+                       required />
+            </div>
+
+            <br/>
+
+            <div class="form-group">
+                <label for="password"><b>Password:</b></label>
+                <input type="password"
+                       placeholder="Password..."
+                       id="password"
+                       name="password"
+                       class="form-control">
+
+                <br /><br />
+
+                <button type="submit">LOGIN</button>  <!--Login button too direct to admin home page-->
+        </form>
+
+</body>
+</html>

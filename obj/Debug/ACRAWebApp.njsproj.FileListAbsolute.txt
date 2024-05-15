@@ -1,0 +1,2 @@
+C:\Users\CUSTOMER\source\repos\ACRAWebApp\ACRAWebApp\obj\Debug\ACRAWebApp.njsproj.CoreCompileInputs.cache
+C:\Users\CUSTOMER\source\repos\ACRAWebApp\ACRAWebApp\bin\Microsoft.NodejsTools.WebRole.dll

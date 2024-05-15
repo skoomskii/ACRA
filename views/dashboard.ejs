@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+       <!--Calls .css file with settings for navigation bar-->
+        <link rel= "stylesheet" href="./css/topnavstyle.css">
+
+        <!--Set background image and it's settings-->
+        <style>
+            body{
+                background-image: url('images/tntflag.png');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 50% ;
+                background-position: center;
+            }
+        </style>
+    </head>
+
+    <!--Webpage name-->
+    <title>Homepage - Administrator</title>
+    <h1 style="text-align:center;">Logged In, <%= user.username %> </h1> <!--Aligns text to centre of page-->
+  
+
+ <!--Navigation bar menu options-->
+<div class="topnav">
+    <a href="/users/dashboard">Home</a>
+    <a href="/users/logout" class="topnav">Logout</a>
+</div>
+
+<br> 
+
+<body>
+     <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite; 
+    font-size: 15px; 
+    padding: 10px; 
+    border: 1px solid lightgray; 
+    margin: 5px;">
+
+    <% if(locals.message){ %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Record Not Found</strong> <%=message.error%>
+    </div>
+<% } %>
+
+<!--Allows admin to search for a court record by the ID number-->
+<form class="search" action="/users/search" method="GET"> 
+    <label> <b>Enter Case Record ID:</b> </label> 
+    <input 
+    type="search"
+    id="caseID"
+    name="caseID" 
+    placeholder="Search..."
+    class="form-control"
+    required />
+    <button type="submit">Search</button>
+</form>
+
+    <br> </br>
+<!--Button directs user to a page to create a new record-->
+  <a href="/users/create_record">
+      <button>Create Record</button>
+  </a>
+
+</body>
+    </html>

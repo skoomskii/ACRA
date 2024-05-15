@@ -1,0 +1,128 @@
+<!DOCTYPE html> 
+<html>
+
+        <!--image settings-->
+    <style>
+        img {
+         display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 30%;
+        float:right;
+        }
+     </style>
+    <head>
+    
+        <link rel= "stylesheet" href="/css/topnavstyle.css"> <!--Calls .css file with settings for navigation bar-->
+        
+    </head>
+
+
+    <title>Manual Entry</title>
+   <h1>Manual Data Entry</h1>
+  
+<!--Navigation bar menu options-->
+<div class="topnav">
+    <a href="/users/dashboard">Home</a>
+    <a href="/users/logout">Logout</a>
+</div>
+
+<br> 
+
+<body>
+
+    <% if(locals.message){ %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>CaseID Already Used</strong> <%=message.error%>
+    </div>
+<% } %>
+
+    <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite;  
+    font-size: 15px; 
+    padding: 10px; 
+    border: 1px solid lightgray; 
+    margin: 5px;">
+
+<!-- Form function to display empty boxes-->
+<form action="/users/manual" method="POST">
+<div class="form-group">
+          <label for="CaseID"><b>Case ID:</b></label>
+          <input
+            type="number"
+            id="CaseID"
+            name="CaseID"
+            style="width: 300px"
+            class="form-control" required/>
+        </div>
+
+<div class="form-group">
+          <label for="DoH"><b>Date of Hearing:</b></label>
+          <input
+            type="date"
+            id="DoH"
+            name="DoH"
+            style="width: 300px"
+            class="form-control"
+            value="2021-11-01" min="1990-01-01" max="2021-12-31" required/>
+        </div>
+
+    <div class="form-group">
+          <label for="DoNH"><b>Date of Next Hearing:</b></label>
+          <input
+            type="date"
+            id="DoNH"
+            name="DoNH"
+            style="width: 300px"
+            class="form-control"
+            value="2021-11-01" min="1990-01-01" max="2021-12-31" required/>
+        </div>
+
+<div class="form-group">
+          <label for="PersonsPresent"><b>Persons Present:</b></label>
+          <input
+            type="text"
+            id="PersonsPresent"
+            name="PersonsPresent"
+            style="width: 300px"
+            class="form-control"  required/>
+        </div>
+
+<div class="form-group">
+          <label for="StartoH"><b>Starting Time of Hearing:</b></label>
+          <input
+            type="time"
+            id="StartoH"
+            name="StartoH"
+            style="width: 300px"
+            class="form-control"
+            min="09:00" max="16:00" required/>
+        </div>
+
+<div class="form-group">
+          <label for="EndoH"><b>Ending Time of Hearing:</b></label>
+          <input
+            type="time"
+            id="EndoH"
+            name="EndoH"
+            style="width: 300px"
+            class="form-control"
+            min="09:00" max="16:00" required/>
+        </div>
+
+<div class="form-group">
+          <label for="Directions"><b>Directions by the Court:</b></label>
+          <textarea
+            id="Directions"
+            name="Directions"
+            rows="5"
+            cols="25"
+            class="form-control"  required></textarea>
+        </div>
+
+    <button type="submit">SUBMIT</button>
+
+</form>
+
+</body>
+    </html>

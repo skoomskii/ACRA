@@ -1,0 +1,3 @@
+C:\Users\CUSTOMER\source\repos\ACRA\ACRA\obj\Debug\ACRA.njsproj.CoreCompileInputs.cache
+C:\Users\CUSTOMER\source\repos\ACRA\ACRA\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\CUSTOMER\source\repos\ACRA\ACRA\obj\Debug\ACRA.njsprojAssemblyReference.cache

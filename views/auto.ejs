@@ -1,0 +1,233 @@
+<!DOCTYPE html> 
+<html>
+        <!--image settings-->
+    <style>
+        img {
+         display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 30%;
+        float:right;
+        }
+     </style>
+    <head>
+    
+        <link rel= "stylesheet" href="./css/topnavstyle.css"> <!--Calls .css file with settings for navigation bar-->
+        
+    </head>
+
+    <title>Automatic Entry</title>
+   <h1>ACRA Speech to Text Converter</h1>
+  
+<!--Navigation bar menu options-->
+   <div class="topnav">
+       <a href="/users/dashboard">Home</a>
+       <a href="/users/logout" class="topnav">Logout</a>
+   </div>
+
+<br> 
+
+<body>
+
+<% if(locals.message){ %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>CaseID Already Used</strong> <%=message.error%>
+    </div>
+<% } %>
+
+    <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite;  
+    font-size: 20px; 
+    padding: 200px; 
+    border: 1px solid lightgray; 
+    margin: 5px;">
+
+<div class="container">
+         
+            <div>
+             
+                <input  id="audioFileChooser" type="file" onchange="readFile(this.files);" accept=".mp3, .wav">
+                
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script src="./script.js"></script>
+                
+              </div>
+             
+            <div class="app"> 
+           
+                <div class="input-multiple">
+                   
+                    <!<textarea id="note-textarea1" placeholder="The record will now show up here ." rows="8"></textarea>
+                    
+                <button id="stop-record-btn" title="SUBMIT">Stop Recording</button>
+         
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="./script.js"></script>
+
+      </div>
+      
+     <form id="content" action="/users/automatic" method="POST">
+
+     <div class="form-group">
+          <label for="CaseID"><b>Case ID:</b></label>
+          <input
+            type="number"
+            id="CaseID"
+            name="CaseID"
+            style="width: 300px"
+            class="form-control" required/>
+        </div>
+
+<div class="form-group">
+          <label for="DoH"><b>Date of Hearing:</b></label>
+          <input
+            type="date"
+            id="DoH"
+            name="DoH"
+            style="width: 300px"
+            class="form-control"
+            value="2021-11-01" min="1990-01-01" max="2021-12-31" required/>
+        </div>
+
+    <div class="form-group">
+          <label for="DoNH"><b>Date of Next Hearing:</b></label>
+          <input
+            type="date"
+            id="DoNH"
+            name="DoNH"
+            style="width: 300px"
+            class="form-control"
+            value="2021-11-01" min="1990-01-01" max="2021-12-31" required/>
+        </div>
+
+<div class="form-group">
+          <label for="PersonsPresent"><b>Persons Present:</b></label>
+          <input
+            type="text"
+            id="PersonsPresent"
+            name="PersonsPresent"
+            style="width: 300px"
+            class="form-control"  required/>
+        </div>
+
+<div class="form-group">
+          <label for="StartoH"><b>Starting Time of Hearing:</b></label>
+          <input
+            type="time"
+            id="StartoH"
+            name="StartoH"
+            style="width: 300px"
+            class="form-control"
+            min="09:00" max="16:00" required/>
+        </div>
+
+<div class="form-group">
+          <label for="EndoH"><b>Ending Time of Hearing:</b></label>
+          <input
+            type="time"
+            id="EndoH"
+            name="EndoH"
+            style="width: 300px"
+            class="form-control"
+            min="09:00" max="16:00" required/>
+        </div>
+
+<div class="form-group">
+          <label for="Directions"><b>Directions by the Court:</b></label>
+          <textarea
+            id="Directions"
+            name="Directions"
+            rows="5"
+            cols="25"
+            class="form-control"  required></textarea>
+        </div>
+
+<script>
+	function readFile(files) {
+		var fileReader = new FileReader();
+			fileReader.readAsArrayBuffer(files[0]);
+			fileReader.onload = function(e) {
+				playAudioFile(e.target.result);
+				console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0].size/1024/1024*100))/100) + " MB)" ));
+			}
+	}
+	function playAudioFile(file) {
+    if (noteContent.length) {
+    noteContent += " ";
+  }
+  recognition.start();
+
+		var context = new window.AudioContext();
+			context.decodeAudioData(file, function(buffer) {
+				var source = context.createBufferSource();
+					source.buffer = buffer;
+					source.loop = false;
+					source.connect(context.destination);
+					source.start(0); 
+			});
+	}
+
+    function extract_info( noteContent) {
+        let full_script =  noteContent 	
+        var ID = full_script.search('case id number') 
+ var date = full_script.search('date of hearing')
+ var next_date = full_script.search('date of next hearing') 
+ var persons_p= full_script.search('persons present')
+ var start_t = full_script.search('starting time')
+ var end_t = full_script.search('ending time') 
+ var directions = full_script.search('directions')
+
+ if (ID == -1) {
+                    document.getElementById("CaseID").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("CaseID").value = full_script.substring(ID+14,date-1).trim();
+                }
+            
+                if (date == -1) {
+                    document.getElementById("DoH").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("DoH").value = full_script.substring(date+16,next_date).trim();
+                }
+                
+                if (next_date == -1) {
+                    document.getElementById("DoNH").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("DoNH").value = full_script.substring(next_date+20,persons_p).trim();
+                }
+                
+                if (persons_p == -1) {
+                    document.getElementById("PersonsPresent").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("PersonsPresent").value = full_script.substring(persons_p+15,start_t).trim();
+                }
+                
+                if (start_t == -1) {
+                    document.getElementById("StartoH").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("StartoH").value = full_script.substring(start_t+25,end_t).trim();
+                }
+                
+                if (end_t == -1) {
+                    document.getElementById("EndoH").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("EndoH").value = full_script.substring(end_t+23,directions).trim();
+                }
+                
+                if (directions == -1) {
+                    document.getElementById("Directions").value = 'MISSING DATA';
+                } else {
+                    document.getElementById("Directions").value = full_script.substring(directions+23).trim();
+                }
+            }
+</script>
+
+<button type="submit">SUBMIT</button>
+
+    </form>
+
+    </body>
+</html>

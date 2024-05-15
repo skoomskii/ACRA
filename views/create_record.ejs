@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html>
+
+    <head>
+    
+        <link rel= "stylesheet" href="./css/topnavstyle.css"> <!--Calls .css file with settings for navigation bar-->
+        
+    </head>
+
+
+    <title>Create Court Record</title>
+   <h1> Create Record</h1>
+   
+   <h2>Select Data Entry Type</h2>
+  
+<!--Navigation bar menu options-->
+   <div class="topnav">
+       <a href="/users/dashboard">Home</a>
+       <a href="/users/logout" class="topnav">Logout</a>
+   </div>
+
+<br> 
+
+<body>
+
+    <!--For page contents to appear in a box-->
+    <div style="background: ghostwhite;  
+    font-size: 15px; 
+    padding: 50px; 
+    border: 1px solid lightgray; 
+    margin: 5px;">
+
+    <% if(locals.message){ %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Record Saved</strong> <%=message.error%>
+    </div>
+<% } %>
+
+<a href="/users/auto">
+    <button type="button">Automatic Entry </button></a>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    &nbsp;
+
+    <br> 
+    <br> 
+    <br> 
+    <br>
+
+<a href="/users/manual">
+    <button type="button" >Manual Entry</button></a> 
+
+
+    </html>
